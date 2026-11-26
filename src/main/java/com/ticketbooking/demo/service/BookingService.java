@@ -54,7 +54,7 @@ public class BookingService {
         seat.setStatus(Seat.SeatStatus.AVAILABLE);
         seatRepository.save(seat);
 
-        return bookingRepository.save(booking);
+        return bookingRepository.save(booking) ;
     }
 
     public List<Booking> getUserBookings(Long userId) {
