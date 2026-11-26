@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(
-    name = "seats",
+    name = "seats" ,
     uniqueConstraints = {
         @UniqueConstraint(columnNames = {"event_id", "seat_number"})
     }
