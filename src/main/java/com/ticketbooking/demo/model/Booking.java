@@ -21,7 +21,7 @@ public class Booking {
     @Column(nullable = false)
     private Long userId; // Will link to User entity on Day 4
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "seat_id", nullable = false)
     private Seat seat;
 
