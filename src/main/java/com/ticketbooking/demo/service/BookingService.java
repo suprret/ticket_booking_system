@@ -1,5 +1,6 @@
 package com.ticketbooking.demo.service;
 
+import com.ticketbooking.demo.exception.SeatAlreadyBookedException;
 import com.ticketbooking.demo.model.Booking;
 import com.ticketbooking.demo.model.Seat;
 import com.ticketbooking.demo.repository.BookingRepository;
@@ -20,11 +21,11 @@ public class BookingService {
 
     @Transactional
     public Booking bookSeat(Long userId, Long seatId) {
-        Seat seat = seatRepository.findById(seatId)
-                .orElseThrow(() -> new RuntimeException("Seat not found"));
+        Seat seat = seatRepository.findByIdWithLock(seatId)
+                .orElseThrow(() -> new SeatAlreadyBookedException("Seat not found"));
 
         if (seat.getStatus() == Seat.SeatStatus.BOOKED) {
-            throw new RuntimeException("Seat " + seat.getSeatNumber() + " is already booked");
+            throw new SeatAlreadyBookedException("Seat " + seat.getSeatNumber() + " is already booked");
         }
 
         seat.setStatus(Seat.SeatStatus.BOOKED);
